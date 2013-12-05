@@ -3,10 +3,11 @@
 
 Vagrant::Config.run do |config|
 
-  config.vm.box = "quantal"
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/quantal/current/quantal-server-cloudimg-amd64-vagrant-disk1.box" 
+  config.vm.box = "saucy1"
+  config.vm.box_url = "http://files.vagrantup.com/precise32.box" 
+  #"http://cloud-images.ubuntu.com/vagrant/quantal/current/quantal-server-cloudimg-amd64-vagrant-disk1.box" 
   # Boot with a GUI so you can see the screen. (Default is headless)
-  # config.vm.boot_mode = :gui
+   config.vm.boot_mode = :gui
 
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
@@ -17,7 +18,7 @@ Vagrant::Config.run do |config|
   # Assign this VM to a bridged network, allowing you to connect directly to a
   # network using the host's network device. This makes the VM appear as another
   # physical device on your network.
-   config.vm.network :bridged
+ #  config.vm.network :bridged
 
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
@@ -42,9 +43,9 @@ Vagrant::Config.run do |config|
   #
   # An example Puppet manifest to provision the message of the day:
   #
-  # # group { "puppet":
-  # #   ensure => "present",
-  # # }
+#  group { "puppet":
+#    ensure => "present",
+#  }
   # #
   # # File { owner => 0, group => 0, mode => 0644 }
   # #
@@ -53,10 +54,18 @@ Vagrant::Config.run do |config|
   # #               Managed by Puppet.\n"
   # # }
   #
+
+config.vm.provision :shell do |shell|
+  shell.inline = "mkdir -p /etc/puppet/modules;
+                  puppet module install --force puppetlabs/apt"
+
+end
+
    config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "manifests"
      puppet.manifest_file  = "init.pp"
      puppet.module_path = "modules"
+     puppet.options = "--verbose --debug"
    end
 
   #config.vm.provision :puppet,
