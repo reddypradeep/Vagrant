@@ -4,6 +4,8 @@ class must-have {
   include apt
   apt::ppa { "ppa:webupd8team/java": }
 
+Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
+
   exec { 'apt-get update':
     command => '/usr/bin/apt-get update',
     before => Apt::Ppa["ppa:webupd8team/java"],
