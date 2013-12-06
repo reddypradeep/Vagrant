@@ -34,7 +34,7 @@ Vagrant::Config.run do |config|
   # config.vm.share_folder "v-data", "/vagrant_data", "../data"
   config.vm.share_folder "shared", "/home/vagrant/shared", "shared"
   config.vm.share_folder "puppet", "/home/vagrant/modules", "modules"
-  config.vm.share_folder "project", "/home/vagrant/dev", "../Code"
+  config.vm.share_folder "project", "/home/vagrant/code", "../Code"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
@@ -57,6 +57,7 @@ Vagrant::Config.run do |config|
 
 config.vm.provision :shell do |shell|
   shell.inline = "mkdir -p /etc/puppet/modules;
+                  puppet module install --force puppetlabs/stdlib
                   puppet module install --force puppetlabs/apt"
 
 end
