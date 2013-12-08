@@ -58,7 +58,9 @@ Vagrant::Config.run do |config|
 config.vm.provision :shell do |shell|
   shell.inline = "mkdir -p /etc/puppet/modules;
                   puppet module install --force puppetlabs/stdlib
-                  puppet module install --force puppetlabs/apt"
+                  puppet module install --force puppetlabs/apt
+                  puppet module install --force maestrodev/wget
+                  puppet module install --force maestrodev/maven"
 
 end
 

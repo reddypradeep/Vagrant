@@ -49,3 +49,5 @@ Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
 
 
 include must-have
+include wget
+include maven
